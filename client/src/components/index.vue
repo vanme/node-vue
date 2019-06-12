@@ -42,6 +42,7 @@ import httpHelper from "../util/httpHelper"
 import {getTelPhone} from '../util/cacheManger'
 import UserModel from '../model/userModel'
 
+
 let userTelephone = getTelPhone();
 export default{
 	data(){
@@ -75,16 +76,15 @@ export default{
 						alert(data.body.description);
 						return;
 					}
-		            let newUser = {name:_self.name,sex:_self.sex,phone:_self.phone,address:_self.address,message:_self.message,id:_self.userList.length+1};
+		      let newUser = {name:_self.name,sex:_self.sex,phone:_self.phone,address:_self.address,message:_self.message,id:_self.userList.length+1};
 					_self.userList.unshift(newUser)
 					if(_self.userList.length==6){
 						_self.userList.pop();
 					}
 					_self.clearFrom();               
-		        }, (err)=>{
+		    }, (err)=>{
 		            alert('shi bai')
-		        })
-
+		    })
 			}else{
 				alert('姓名、性别不能为空')
 			}			
@@ -97,7 +97,7 @@ export default{
 					alert(data.body.description);
 					return;
 				}
-		        let result = data.body;
+		    let result = data.body;
 				if(result.code>0 && result.data){
 					let newResult = result.data.reverse();
 					let len = 5;

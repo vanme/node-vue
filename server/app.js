@@ -19,10 +19,10 @@ app.all('*', (req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, OPTIONS, DELETE');
   next();
 });
-
+// 发送验证码
 app.get('/getVeryCode',bodyParser.json(),function(req,res){    
     var httpResult = new HttpResult();    
-    //var telPhone = req.query.num;    
+    var telPhone = req.query.num;    
     if(!checkSign(req,res)){        
         return     
     }
@@ -31,6 +31,8 @@ app.get('/getVeryCode',bodyParser.json(),function(req,res){
     httpResult.data = codeNum;
     res.send(httpResult); 
 })
+
+//获取已经报名列表
 app.get('/users',bodyParser.json(),function(req,res){    
     if(!checkSign(req,res)){       
         return     
@@ -42,10 +44,12 @@ app.get('/users',bodyParser.json(),function(req,res){
     }
 })
 
+//添加到报名列表
 app.post('/addUser',bodyParser.json(),function(req,res){    
     if(!checkSign(req,res)){
         return
     } 
+    console.log(datasource)
     if(datasource=="file"){
         fileManger.addItem(req,res);
     }else{
@@ -53,10 +57,12 @@ app.post('/addUser',bodyParser.json(),function(req,res){
     }       
 })
 
+//分页获取报名列表
 app.get('/page/:pageindex/:pagesize',function(req,res){
     if(!checkSign(req,res)){
         return
     } 
+    console.log(datasource)
     if(datasource=="file"){
         fileManger.setPagination(req,res);
     }else{
